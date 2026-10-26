@@ -90,7 +90,34 @@ Browse, preview, and toggle interchangeable components:
 
 ---
 
-### 5. Multi-Device Live Responsive Preview
+### ⚡ 5. Full Control Customization Studio
+A dedicated, professional visual workspace giving shop owners 100% granular design control:
+- **3-Panel Visual Editor**:
+  - **Left Panel**: Hierarchical Layer Tree (select, rename, duplicate, delete, lock, reorder) & Element Inserter (+ Headings, Paragraphs, Buttons, Containers, 2-Col Grids, Cards, Dividers, Spacers).
+  - **Center Canvas**: Interactive live storefront canvas with 8-point resize handles, visual dragging, 8px grid snapping (`🧲`), live dimension tooltips, and inline content editing (`contenteditable`).
+  - **Right Panel (Inspector)**: Contextual properties editor covering Layout & Box Model (margins/paddings), Dimensions (px, %, auto), Typography (family, size, weight, alignment, color), Surface & Backgrounds, Borders & Corner Radii, and Actions.
+  - **Top Toolbar**: Seamless mode switching (`Standard Editor` ⇄ `Full Control Studio`), Undo/Redo, Zoom (50%-150%), Viewports (Desktop/Tablet/Mobile), Grid Snap toggle, and Named Checkpoints.
+  - **Bottom Status Bar**: Breadcrumb hierarchy trail, live dimensions (W × H), position coordinates (X, Y), and autosave indicators.
+
+- **🎨 Advanced Colour Blending Studio & Palette Mixer**:
+  - Precision HEX, RGB, and HSL sliders with native browser **EyeDropper API** screen color sampling.
+  - **Color Interpolation & Blending**: Blend Color A and Color B across any ratio (0% to 100%) in real-time.
+  - **Multi-Stop Gradient Generator**: Linear, Radial, and Conic gradients with customizable angle (0-360°) and stop positions.
+  - **WCAG Contrast Analyzer**: Calculates live contrast ratios against black/white with instant AA/AAA compliance badges.
+  - Apply colors globally to theme tokens or locally to the selected canvas element.
+
+- **🖼️ Complete Background & Pattern Creator**:
+  - Solid colors, 2-stop and 3-stop linear/radial/conic gradients, and mesh glow backgrounds.
+  - **SVG Geometric Patterns**: Subtle Dots, Clean Grid, Diagonal Stripes, Modern Checks, Waves Mesh, and Isometric Cubes.
+  - Save custom backgrounds and apply them to specific sections or as the global page backdrop.
+
+- **🚩 Checkpoints & Recovery**:
+  - Save named milestone checkpoints (e.g. "Pre-Sale Draft", "Dark Theme Overhaul").
+  - Instant one-click restore without losing local edits.
+
+---
+
+### 6. Multi-Device Live Responsive Preview
 Test your design in real-time across:
 - **Desktop** (100% fluid)
 - **Tablet** (768px with realistic tablet frame)
@@ -98,14 +125,14 @@ Test your design in real-time across:
 
 ---
 
-### 6. WhatsApp Instant Ordering & Cart
+### 7. WhatsApp Instant Ordering & Cart
 - Live slide-over shopping cart drawer with item counter.
 - One-click **WhatsApp Checkout**: Formats the customer's selected items, quantities, and order total into a pre-filled WhatsApp message sent straight to the merchant's phone number!
 - Instant inquiry contact forms.
 
 ---
 
-### 7. Export & QR Sharing
+### 8. Export & QR Sharing
 - **Standalone HTML Export**: Download a 100% self-contained `.html` file with embedded CSS, JS, and product data that works offline or on any host.
 - **ZIP Export**: Generates a complete project package with `index.html`, `data.json`, and deployment guides.
 - **QR Code Studio**: Instant QR code generation with high-resolution PNG download.

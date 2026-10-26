@@ -409,8 +409,22 @@ window.StoreRenderer = {
   renderFullStore: function(state) {
     const { cssVars, styleClass } = this.getThemeStyles(state);
 
+    let overridesCss = '';
+    const overrides = (window.FullControl && window.FullControl.elementOverrides) || state.elementOverrides || {};
+    Object.keys(overrides).forEach(sel => {
+      const rules = overrides[sel];
+      if (rules) {
+        overridesCss += `${sel} {\n`;
+        Object.keys(rules).forEach(prop => {
+          if (rules[prop]) overridesCss += `  ${prop}: ${rules[prop]} !important;\n`;
+        });
+        overridesCss += `}\n`;
+      }
+    });
+
     return `
       <div class="store-root ${styleClass}" style="${cssVars}">
+        ${overridesCss ? `<style id="fc-injected-overrides">${overridesCss}</style>` : ''}
         ${this.renderAnnouncement(state)}
         ${this.renderHeader(state)}
         ${this.renderHero(state)}

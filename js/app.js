@@ -664,6 +664,25 @@
       document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
     },
 
+    getState: function() {
+      return STATE;
+    },
+
+    setState: function(newState) {
+      STATE = newState;
+      snap();
+      renderAll();
+    },
+
+    setBackgroundPreset: function(preset) {
+      STATE.bgPreset = preset;
+      snap();
+      renderAll();
+    },
+
+    showToast: showToast,
+    snap: snap,
+    renderAll: renderAll,
     undo: undo,
     redo: redo
   };

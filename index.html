@@ -16,6 +16,7 @@
   <!-- Application Stylesheets -->
   <link rel="stylesheet" href="css/components.css" id="components-css-link">
   <link rel="stylesheet" href="css/builder.css">
+  <link rel="stylesheet" href="css/full-control.css">
 </head>
 <body>
 
@@ -43,6 +44,7 @@
         <button class="tab-btn" data-tab="content" onclick="App.setTab('content')">📝 Content</button>
         <button class="tab-btn" data-tab="buttons" onclick="App.setTab('buttons')">🔘 Buttons</button>
         <button class="tab-btn" data-tab="components" onclick="App.setTab('components')">🧩 Library</button>
+        <button class="tab-btn" data-tab="fullcontrol" onclick="FullControl.openStudio()" style="color:var(--ed-primary);font-weight:800">⚡ Full Control</button>
         <button class="tab-btn" data-tab="share" onclick="App.setTab('share')">🚀 Export</button>
       </nav>
 
@@ -70,8 +72,11 @@
           <span>Live Interactive Preview</span>
         </div>
 
-        <div>
-          <button class="craft-btn btn-primary btn-sm btn-shape-soft" onclick="App.exportHtml()">
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="craft-btn btn-primary btn-sm btn-shape-soft" onclick="FullControl.openStudio()" style="background:linear-gradient(135deg,#4f46e5,#06b6d4);color:#ffffff;border:none">
+            <span>⚡ Full Control Studio</span>
+          </button>
+          <button class="craft-btn btn-outline btn-sm btn-shape-soft" onclick="App.exportHtml()">
             <span>📥 Export HTML</span>
           </button>
         </div>
@@ -94,6 +99,9 @@
   <script src="js/data/templates.js"></script>
   <script src="js/data/components-registry.js"></script>
   <script src="js/modules/buttons.js"></script>
+  <script src="js/modules/color-studio.js"></script>
+  <script src="js/modules/background-studio.js"></script>
+  <script src="js/modules/full-control.js"></script>
   <script src="js/modules/renderer.js"></script>
   <script src="js/modules/exporter.js"></script>
   <script src="js/app.js"></script>
