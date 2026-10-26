@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.debugpy",
+    "charliermarsh.ruff",
+    "qwtel.sqlite-viewer",
+    "ritwickdey.liveserver",
+    "esbenp.prettier-vscode",
+    "rangav.vscode-thunder-client",
+    "mikestead.dotenv",
+    "formulahendry.auto-rename-tag",
+    "naumovs.color-highlight"
+  ]
+}
