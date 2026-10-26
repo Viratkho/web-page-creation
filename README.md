@@ -140,6 +140,105 @@ Test your design in real-time across:
 
 ---
 
+---
+
+## ⚡ FastAPI Backend & SQLite Database
+
+CatalogCraft includes a **Python FastAPI backend with SQLite persistence** and SQLAlchemy ORM. This allows saving multiple store projects, persisting products and design tokens across application restarts, and hosting the entire web application and REST API from a single lightweight local service.
+
+### Backend Features
+
+- **RESTful API** for full CRUD operations on shop projects and nested products.
+- **SQLite Database** with automatic table creation and schema validation.
+- **Pydantic V2** request and response validation with strict typing.
+- **Unified Hosting**: The FastAPI server mounts and serves the frontend (`index.html`, styles, scripts) directly from `/`, while exposing the API at `/api` and interactive Swagger docs at `/docs`.
+- **Hybrid Storage Architecture**:
+  - **Online**: Changes automatically sync to the SQLite database via debounced REST calls.
+  - **Offline**: If the backend is not running, the frontend seamlessly operates in local draft mode using browser `localStorage` with zero disruption.
+
+### Backend API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/health` | Health check and version status |
+| `GET` | `/api/projects` | List all saved projects (supports `?q=` search and pagination) |
+| `POST` | `/api/projects` | Create a new project from frontend state |
+| `GET` | `/api/projects/{id}` | Retrieve full project state by ID |
+| `PUT` | `/api/projects/{id}` | Update existing project state and products |
+| `DELETE` | `/api/projects/{id}` | Delete a project and cascade-delete its products |
+| `POST` | `/api/projects/{id}/duplicate` | Duplicate an existing project |
+| `GET` | `/api/projects/{id}/products` | List products with optional `?category=` and `?q=` filters |
+| `POST` | `/api/projects/{id}/products` | Add a product to a project |
+| `GET` | `/api/projects/{id}/products/{p_id}` | Get product details |
+| `PUT` | `/api/projects/{id}/products/{p_id}` | Update product details |
+| `DELETE` | `/api/projects/{id}/products/{p_id}` | Delete a product |
+| `GET` | `/docs` | Interactive OpenAPI / Swagger UI |
+| `GET` | `/` | Serves the CatalogCraft visual editor |
+
+---
+
+## 💻 Local Quickstart on Windows
+
+### Option A: One-Click Launch (Windows)
+
+Double-click `start-backend.bat` or run:
+```powershell
+.\start-backend.ps1
+```
+This automatically initializes the Python virtual environment, installs dependencies, and launches the server at `http://localhost:8000`.
+
+### Option B: Manual Setup (Windows PowerShell)
+
+1. Open PowerShell and navigate to the project directory:
+   ```powershell
+   cd "C:\Users\aravi\.gemini\antigravity\scratch\web-page-creation\backend"
+   ```
+
+2. Create a Python virtual environment:
+   ```powershell
+   python -m venv .venv
+   ```
+
+3. Activate the virtual environment:
+   ```powershell
+   .\.venv\Scripts\Activate.ps1
+   ```
+
+4. Install dependencies:
+   ```powershell
+   pip install -r requirements.txt
+   ```
+
+5. Start the server:
+   ```powershell
+   python run.py
+   ```
+   *(Or using uvicorn directly: `uvicorn app.main:app --reload --port 8000`)*
+
+6. Open your web browser:
+   - **CatalogCraft Builder:** [http://localhost:8000](http://localhost:8000)
+   - **Interactive API Documentation:** [http://localhost:8000/docs](http://localhost:8000/docs)
+
+---
+
+## 🧪 Running Automated Tests
+
+Run the automated test suite with pytest:
+
+```powershell
+cd backend
+.\.venv\Scripts\python.exe -m pytest tests/ -v
+```
+
+All 13 test suites verify:
+- Health checks and system version.
+- Project creation, retrieval, updates, and deletion.
+- Search query filtering and duplicate project handling.
+- Nested product CRUD, unique constraints, and cascades.
+- Frontend static file serving.
+
+---
+
 ## 🚀 Free Deployment Guide
 
 ### Option 1: GitHub Pages (Recommended)

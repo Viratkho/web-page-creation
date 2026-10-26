@@ -98,6 +98,9 @@
       try {
         localStorage.setItem('catalogcraft_state', json);
       } catch (e) {}
+      if (window.CatalogCraftAPI && window.CatalogCraftAPI.isBackendAvailable()) {
+        window.CatalogCraftAPI.scheduleAutoSave(() => STATE);
+      }
     }, 400);
   }
 
@@ -405,7 +408,34 @@
     const panel = document.getElementById('panel-share');
     if (!panel) return;
 
+    const isOnline = window.CatalogCraftAPI && window.CatalogCraftAPI.isBackendAvailable();
+    const currentProjId = window.CatalogCraftAPI ? window.CatalogCraftAPI.getCurrentProjectId() : null;
+
     panel.innerHTML = `
+      <div class="settings-group">
+        <h4>Backend Storage (FastAPI + SQLite)</h4>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${isOnline ? '#10b981' : '#f59e0b'}"></span>
+          <span style="font-size:12px;font-weight:600;color:${isOnline ? '#059669' : '#d97706'}">
+            ${isOnline ? '🟢 Connected to FastAPI Server' : '🟡 Offline Mode (Local Storage)'}
+          </span>
+        </div>
+        <p style="font-size:12px;color:var(--ed-muted);margin-bottom:10px">
+          ${isOnline 
+            ? 'Your store data persists in SQLite database across restarts.' 
+            : 'Changes are saved locally to your browser. Start the FastAPI backend for SQLite database persistence.'}
+        </p>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <button class="tool-btn" style="flex:1;background:var(--ed-primary);color:#fff" onclick="App.saveToServer()">
+            💾 Save to Database
+          </button>
+          <button class="tool-btn" style="flex:1" onclick="App.openProjectsModal()">
+            📂 My Projects
+          </button>
+        </div>
+        ${currentProjId ? `<div style="font-size:11px;color:var(--ed-muted);word-break:break-all">Active Project ID: <code>${currentProjId}</code></div>` : ''}
+      </div>
+
       <div class="settings-group">
         <h4>Standalone Website Export</h4>
         <p style="font-size:12px;color:var(--ed-muted)">
@@ -684,7 +714,135 @@
     snap: snap,
     renderAll: renderAll,
     undo: undo,
-    redo: redo
+    redo: redo,
+
+    saveToServer: async function() {
+      try {
+        showToast('Saving to server...');
+        const res = await window.CatalogCraftAPI.saveProject(STATE);
+        if (res && res.id) {
+          window.CatalogCraftAPI.setCurrentProjectId(res.id);
+          showToast('✅ Saved "' + (STATE.store.name || 'Shop') + '" to SQLite database!');
+          renderSharePanel();
+        } else {
+          showToast('Saved locally in browser.');
+        }
+      } catch (err) {
+        console.error(err);
+        showToast('⚠️ Save failed: ' + err.message);
+      }
+    },
+
+    loadFromServer: async function(id) {
+      try {
+        showToast('Loading project...');
+        const data = await window.CatalogCraftAPI.loadProject(id);
+        if (data) {
+          STATE = {
+            store: data.store || {},
+            designSystem: data.designSystem || 'modern-saas',
+            tokenOverrides: data.tokenOverrides || {},
+            bgPreset: data.bgPreset || '',
+            layout: data.layout || 'grid',
+            buttonShape: data.buttonShape || 'shape-soft',
+            buttonEffect: data.buttonEffect || '',
+            sections: data.sections || {},
+            products: data.products || [],
+            features: data.features || [],
+            faqs: data.faqs || []
+          };
+          if (data.elementOverrides && window.FullControl) {
+            window.FullControl.elementOverrides = data.elementOverrides;
+          }
+          snap();
+          renderAll();
+          App.closeProjectsModal();
+          showToast('✅ Loaded "' + (STATE.store.name || 'Shop') + '"!');
+        }
+      } catch (err) {
+        console.error(err);
+        showToast('⚠️ Load failed: ' + err.message);
+      }
+    },
+
+    openProjectsModal: async function() {
+      let modal = document.getElementById('projects-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'projects-modal';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+        modal.innerHTML = `
+          <div style="background:var(--ed-surface,#fff);border:1px solid var(--ed-border,#e2e8f0);border-radius:16px;width:100%;max-width:540px;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);overflow:hidden">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--ed-border,#e2e8f0);display:flex;justify-content:space-between;align-items:center">
+              <h3 style="margin:0;font-size:16px;font-weight:700">📂 Saved Shop Projects</h3>
+              <button onclick="App.closeProjectsModal()" style="border:none;background:none;font-size:20px;cursor:pointer;color:var(--ed-muted,#64748b)">&times;</button>
+            </div>
+            <div id="projects-modal-list" style="padding:16px 20px;overflow-y:auto;flex:1">
+              <p style="color:var(--ed-muted);font-size:13px">Loading projects...</p>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      }
+      modal.style.display = 'flex';
+
+      const listEl = document.getElementById('projects-modal-list');
+      try {
+        const list = await window.CatalogCraftAPI.listProjects();
+        if (!list || list.length === 0) {
+          listEl.innerHTML = `
+            <div style="text-align:center;padding:30px 10px;color:var(--ed-muted)">
+              <div style="font-size:32px;margin-bottom:8px">📦</div>
+              <p style="font-size:13px;margin:0">No saved projects found on server.</p>
+              <button class="tool-btn" style="margin-top:12px;background:var(--ed-primary);color:#fff" onclick="App.saveToServer();App.closeProjectsModal()">Save Current Project Now</button>
+            </div>
+          `;
+          return;
+        }
+        listEl.innerHTML = list.map(item => `
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid var(--ed-border,#e2e8f0);border-radius:10px;margin-bottom:8px;background:var(--ed-panel-bg,#f8fafc)">
+            <div>
+              <div style="font-weight:700;font-size:14px">${item.name || 'Untitled Shop'}</div>
+              <div style="font-size:11px;color:var(--ed-muted)">Last saved: ${new Date(item.updated_at).toLocaleString()}</div>
+            </div>
+            <div style="display:flex;gap:6px">
+              <button class="tool-btn" style="padding:6px 10px;font-size:12px" onclick="App.loadFromServer('${item.id}')">Open</button>
+              <button class="tool-btn" style="padding:6px 10px;font-size:12px" onclick="App.duplicateProjectOnServer('${item.id}')" title="Duplicate">📑</button>
+              <button class="tool-btn" style="padding:6px 10px;font-size:12px;color:#ef4444" onclick="App.deleteProjectFromServer('${item.id}')" title="Delete">🗑️</button>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        listEl.innerHTML = `<p style="color:#ef4444;font-size:13px">Failed to load projects: ${err.message}</p>`;
+      }
+    },
+
+    closeProjectsModal: function() {
+      const modal = document.getElementById('projects-modal');
+      if (modal) modal.style.display = 'none';
+    },
+
+    deleteProjectFromServer: async function(id) {
+      if (!confirm('Are you sure you want to delete this project?')) return;
+      try {
+        await window.CatalogCraftAPI.deleteProject(id);
+        showToast('Project deleted');
+        App.openProjectsModal();
+        renderSharePanel();
+      } catch (err) {
+        showToast('⚠️ Delete failed: ' + err.message);
+      }
+    },
+
+    duplicateProjectOnServer: async function(id) {
+      try {
+        const copy = await window.CatalogCraftAPI.duplicateProject(id);
+        showToast('Project duplicated as "' + copy.store.name + '"');
+        App.openProjectsModal();
+      } catch (err) {
+        showToast('⚠️ Duplicate failed: ' + err.message);
+      }
+    }
   };
 
   // Keyboard Shortcuts (Ctrl+Z, Ctrl+Y)
@@ -812,7 +970,7 @@
   };
 
   // Initialization
-  window.addEventListener('DOMContentLoaded', () => {
+  window.addEventListener('DOMContentLoaded', async () => {
     try {
       const saved = localStorage.getItem('catalogcraft_state');
       if (saved) {
@@ -825,5 +983,15 @@
     }
     snap();
     renderAll();
+
+    // Check FastAPI Backend Connection
+    if (window.CatalogCraftAPI) {
+      const isOnline = await window.CatalogCraftAPI.checkBackend();
+      if (isOnline) {
+        window.CatalogCraftAPI.enableAutoSave();
+        renderSharePanel();
+        showToast('🟢 Connected to FastAPI backend with SQLite persistence');
+      }
+    }
   });
 })();
