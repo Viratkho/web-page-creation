@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CatalogCraft – Free Catalogue Builder</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Inter:wght@400;700&family=Playfair+Display:wght@400;700&family=Lora:wght@400;700&family=Montserrat:wght@400;700&family=Raleway:wght@400;700&family=Oswald:wght@400;700&family=Pacifico&family=Merriweather:wght@400;700&family=DM+Serif+Display&family=Nunito:wght@400;700&family=Quicksand:wght@400;700&family=Bebas+Neue&family=Cormorant+Garamond:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--bg:#f6f5f2;--pn:#fff;--tx:#1b1b1f;--mu:#6b6b76;--ac:#4f46e5;--bd:#e3e1dc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#121216;--pn:#1c1c22;--tx:#ececf1;--mu:#9a9aa8;--bd:#2d2d36}}
+:root[data-theme=dark]{--bg:#121216;--pn:#1c1c22;--tx:#ececf1;--mu:#9a9aa8;--bd:#2d2d36}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.app{display:grid;grid-template-columns:370px 1fr;min-height:100vh}
+.side{background:var(--pn);border-right:1px solid var(--bd);padding:14px;max-height:100vh;overflow:auto;position:sticky;top:0}
+.brand{font-weight:800;font-size:18px;display:flex;justify-content:space-between;align-items:center}.brand small{display:block;font-weight:400;color:var(--mu);font-size:12px}
+.tabs{display:flex;gap:4px;margin:12px 0}.tabs button{flex:1}
+button,select,input,textarea{font:inherit;color:inherit}
+button{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:7px 10px;cursor:pointer;transition:.15s}
+button:hover{border-color:var(--ac)}button.p,.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+input,select,textarea{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:6px 8px;width:100%}
+input[type=color]{padding:0;height:32px;width:56px}input[type=range]{padding:0}input[type=checkbox]{width:auto}
+label.r{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:7px 0}label.r span{flex:none;color:var(--mu);font-size:12px}label.r>*:last-child{max-width:190px}
+h4{margin:16px 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mu)}
+.row{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.row>*{flex:1}
+details.pr{border:1px solid var(--bd);border-radius:10px;padding:8px;margin:6px 0}details summary{cursor:pointer;font-weight:600}
+.g2{display:grid;grid-template-columns:60px 1fr;gap:6px;margin:6px 0}
+#st{font-size:12px;margin:8px 0;min-height:18px;color:var(--mu)}#st.e{color:#d33}
+.main{min-width:0}.bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--bd);align-items:center;position:sticky;top:0;background:var(--bg);z-index:5}.bar span{margin-left:auto;color:var(--mu);font-size:12px}
+#qr{background:#fff;padding:12px;border-radius:12px;display:inline-block;min-height:48px}#qr img{display:block}
+.view{min-height:100vh}.note{color:var(--mu);font-size:12px}
+@media(max-width:900px){.app{grid-template-columns:1fr}.side{position:static;max-height:none}}
+/* catalogue */
+.stage{padding:22px;min-height:100%}
+.sheet{container-type:inline-size;margin:0 auto;background:var(--kb);color:var(--kt);font-family:var(--bf);border-radius:var(--r);overflow:hidden;box-shadow:0 12px 40px #0004;transition:max-width .3s}
+.sheet *{box-sizing:border-box}
+.kh{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:16px 24px}
+.kn{font:700 1.5em var(--hf)}
+.kcw{padding:12px 24px 0}.kc{border:1px solid var(--kp);color:var(--kt);background:none;border-radius:99px;padding:4px 14px;margin:2px;font:inherit;cursor:pointer}.kc.on{background:var(--kp);color:var(--kon)}
+.kho{padding:46px 24px;text-align:center;background:linear-gradient(135deg,var(--kp),color-mix(in srgb,var(--kp) 65%,var(--ka)));color:var(--kon)}.kho.big{padding:110px 24px}
+.kho h1{font:700 2em var(--hf);margin:0 0 6px}.kho p{margin:0;opacity:.9}
+.kg{display:grid;grid-template-columns:repeat(var(--cols),1fr);gap:16px;padding:24px}
+.ks .pc:first-child{grid-column:span 2}
+.km{columns:var(--cols);column-gap:16px;padding:24px}.km .pc{break-inside:avoid;margin-bottom:16px}
+.km .pc:nth-child(3n+1) .pi{aspect-ratio:3/4}.km .pc:nth-child(3n) .pi{aspect-ratio:4/3}
+.ke{padding:24px;display:grid;gap:22px}.ke .pc{flex-direction:row;align-items:center}.ke .pc:nth-child(even){flex-direction:row-reverse}.ke .pi{width:46%;aspect-ratio:4/3;flex:none}.ke .pb{flex:1;padding:18px}
+.kmenu{padding:24px;display:grid;gap:6px}.kmenu .pc{background:none;border:0;border-bottom:1px dashed color-mix(in srgb,var(--kt) 35%,transparent);border-radius:0}.kmenu .pi{display:none}.kmenu .pb{display:grid;grid-template-columns:1fr auto;gap:2px 14px}.kmenu .pp{grid-row:1;grid-column:2}
+.kl{padding:24px;display:grid;gap:10px}.kl .pc{flex-direction:row;align-items:center}.kl .pi{width:84px;aspect-ratio:1;font-size:2em;flex:none}
+.ksb{display:grid;grid-template-columns:170px 1fr}.ksb aside{padding:24px 0 24px 24px;display:flex;flex-direction:column;align-items:flex-start}
+.pc{background:var(--kc);border:1px solid color-mix(in srgb,var(--kt) 12%,transparent);border-radius:calc(var(--r)*.7);overflow:hidden;display:flex;flex-direction:column}
+.pi{aspect-ratio:1;display:grid;place-items:center;font-size:3.4em;background:linear-gradient(135deg,var(--ka),var(--kp));position:relative;overflow:hidden}.pi img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.tg{position:absolute;top:8px;left:8px;background:var(--kp);color:var(--kon);font:700 .7em system-ui;padding:2px 9px;border-radius:99px;z-index:1}
+.pb{padding:12px}.pt{font:700 1em var(--hf)}.pd{opacity:.75;font-size:.85em;margin:3px 0}.pp{font-weight:700;color:var(--kp)}
+.kf{padding:22px;text-align:center;opacity:.7;font-size:.85em}.kf a{color:inherit}.empty{padding:40px;text-align:center;opacity:.6}
+@container(max-width:640px){.kg{grid-template-columns:repeat(2,1fr)}.km{columns:2}.ke .pc,.ke .pc:nth-child(even){flex-direction:column}.ke .pi{width:100%}.ksb{grid-template-columns:1fr}.ksb aside{flex-direction:row;flex-wrap:wrap;padding:12px 24px 0}.kho.big{padding:70px 24px}}
+</style></head><body><div id="root"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const PAL=[['Black & Gold','#111111','#f5f1e8','#c9a227','#e8d9a0','#1e1e1e'],['Blue & White','#ffffff','#10243e','#2563eb','#93c5fd','#f1f5f9'],['Orange & Black','#121212','#ffffff','#ff7a00','#ffb066','#202020'],['Green & Cream','#f7f2e3','#1f3d2b','#2f7d4f','#a3c9a8','#fffaf0'],['Pink & White','#ffffff','#4a1d33','#ec4899','#fbcfe8','#fff1f7'],['Purple & Lavender','#f3efff','#2b1a4f','#7c3aed','#c4b5fd','#ffffff'],['Red & White','#ffffff','#2a0d0d','#dc2626','#fca5a5','#fef2f2'],['Brown & Beige','#f1e7da','#3b2a1e','#8b5e3c','#d2b48c','#fbf5ec'],['Navy & Silver','#0f1b33','#e5e9f0','#c0c8d6','#5b7bb3','#17284a'],['Pastel Rainbow','#fdf6ff','#3a3350','#f4a6c8','#a6d8f4','#ffffff'],['Earth Tones','#efe6d8','#33291e','#a0522d','#6b8e5a','#faf4e8'],['Monochrome','#ffffff','#111111','#111111','#888888','#f2f2f2'],['Teal & Coral','#f0fbfa','#0b3b3a','#0d9488','#fb7185','#ffffff'],['Midnight Neon','#0b0b1a','#e6e6ff','#22d3ee','#e879f9','#15152b']];
+const BG=[['Cream','#efe9dd'],['Slate','#334155'],['Ink','#0b0b0f'],['Sage','#cfd8c8'],['Sunset','linear-gradient(135deg,#ff9966,#ff5e62)'],['Ocean','linear-gradient(135deg,#2193b0,#6dd5ed)'],['Lavender','linear-gradient(135deg,#e0c3fc,#8ec5fc)'],['Mint','linear-gradient(135deg,#d4fc79,#96e6a1)'],['Rose','linear-gradient(135deg,#fbc2eb,#a6c1ee)'],['Aurora (3)','linear-gradient(135deg,#12c2e9,#c471ed,#f64f59)'],['Royal (3)','linear-gradient(135deg,#141e30,#243b55,#6a85b6)'],['Peach (3)','linear-gradient(135deg,#ffecd2,#fcb69f,#ff9a9e)'],['Forest (3)','linear-gradient(135deg,#0f2027,#203a43,#2c5364)'],['Spotlight','radial-gradient(circle at 50% 0,#fff 0,#c7d2fe 60%,#818cf8)'],['Glow','radial-gradient(circle at 20% 20%,#f9a8d4,transparent 50%),radial-gradient(circle at 80% 80%,#93c5fd,transparent 50%),#fdf2f8'],['Dots','radial-gradient(#0003 1.5px,transparent 1.5px) 0 0/18px 18px,#f4f1ea'],['Grid','linear-gradient(#0001 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,#0001 1px,transparent 1px) 0 0/24px 24px,#eef2f7'],['Stripes','repeating-linear-gradient(45deg,#fff 0 12px,#f1e4d3 12px 24px)'],['Checks','conic-gradient(#e5e7eb 25%,#fff 0 50%,#e5e7eb 0 75%,#fff 0) 0 0/40px 40px'],['Festive','repeating-linear-gradient(90deg,#b91c1c 0 20px,#f59e0b 20px 40px)']];
+const FONTS=[['Poppins','sans-serif'],['Inter','sans-serif'],['Playfair Display','serif'],['Lora','serif'],['Montserrat','sans-serif'],['Raleway','sans-serif'],['Oswald','sans-serif'],['Pacifico','cursive'],['Merriweather','serif'],['DM Serif Display','serif'],['Nunito','sans-serif'],['Quicksand','sans-serif'],['Bebas Neue','sans-serif'],['Cormorant Garamond','serif'],['Space Grotesk','sans-serif']];
+const LAY=[['Classic grid','kg'],['Sidebar categories','kg'],['Masonry','km'],['Editorial','ke'],['Restaurant menu','kmenu'],['Showcase','kg ks'],['Compact list','kl'],['Full-width hero','kg']];
+const BIZ={Bakery:[5,7,'Fresh from the oven',[['Butter Croissant','120','Pastry','🥐'],['Sourdough Loaf','280','Bread','🍞'],['Chocolate Cake','650','Cakes','🍰'],['Blueberry Muffin','90','Pastry','🧁'],['Cinnamon Roll','110','Pastry','🥯'],['Baguette','150','Bread','🥖']]],Fashion:[3,0,'Wear your story',[['Linen Shirt','1499','Men','👕'],['Summer Dress','2199','Women','👗'],['Canvas Sneakers','1799','Shoes','👟'],['Tote Bag','899','Bags','👜'],['Denim Jacket','2899','Men','🧥'],['Sun Hat','499','Accessories','👒']]],Electronics:[0,13,'Smart gear, fair prices',[['Wireless Earbuds','2499','Audio','🎧'],['Smart Watch','4999','Wearables','⌚'],['Power Bank','1299','Accessories','🔋'],['Bluetooth Speaker','1999','Audio','🔊'],['Phone Case','399','Accessories','📱'],['Laptop Stand','1499','Accessories','💻']]],Restaurant:[4,3,'Today’s menu',[['Margherita Pizza','320','Mains','🍕'],['Veg Burger','180','Mains','🍔'],['Caesar Salad','210','Starters','🥗'],['Pasta Alfredo','290','Mains','🍝'],['Iced Coffee','120','Drinks','☕'],['Brownie Sundae','160','Desserts','🍨']]],Gifts:[2,4,'Gifts they will love',[['Scented Candle','399','Home','🕯️'],['Photo Frame','349','Home','🖼️'],['Gift Hamper','1299','Hampers','🎁'],['Teddy Bear','599','Toys','🧸'],['Flower Bouquet','749','Flowers','💐'],['Greeting Card','59','Cards','💌']]]};
+const MAX=2300;
+function starter(b){const [l,p,t,e]=BIZ[b];return{name:b+' Corner',tag:t,sub:'Browse our catalogue and order today',contact:'Call or WhatsApp us to order',cur:'₹',bg:[15,2,6,12,4][Object.keys(BIZ).indexOf(b)]??0,ang:135,pal:p,hf:2,bf:0,layout:l,cols:3,r:16,fs:15,ov:{},products:e.map((x,i)=>({n:x[0],p:x[1],c:x[2],e:x[3],d:'Made with care.',x:'',f:i==0,i:''}))}}
+let S=starter('Bakery'),H=[],hi=-1,T='look',DEV='100%',openP=-1,tm=0,rs=0;
+function clean(d){if(!d||typeof d!=='object')throw 0;const s=(x,m=300)=>String(x??'').slice(0,m),n=(x,a,b,f)=>{x=+x;return isFinite(x)?Math.min(b,Math.max(a,Math.round(x))):f},ov={};
+for(const k of['bg','tx','pr','ac','cd'])if(d.ov&&/^#[0-9a-f]{6}$/i.test(d.ov[k]))ov[k]=d.ov[k];
+return{name:s(d.name,60),tag:s(d.tag,100),sub:s(d.sub,160),contact:s(d.contact,160),cur:s(d.cur,4),bg:n(d.bg,0,BG.length-1,0),ang:n(d.ang,0,360,135),pal:n(d.pal,0,PAL.length-1,0),hf:n(d.hf,0,FONTS.length-1,0),bf:n(d.bf,0,FONTS.length-1,0),layout:n(d.layout,0,LAY.length-1,0),cols:n(d.cols,2,4,3),r:n(d.r,0,32,16),fs:n(d.fs,12,19,15),ov,
+products:(Array.isArray(d.products)?d.products:[]).slice(0,60).map(p=>({n:s(p.n,80),p:s(p.p,12),c:s(p.c,30),d:s(p.d,160),x:s(p.x,16),e:s(p.e,4),f:!!p.f,i:/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/.test(p.i||'')?p.i:''}))}}
+const on=h=>{const v=[1,3,5].map(i=>parseInt(h.substr(i,2),16));return(v[0]*.299+v[1]*.587+v[2]*.114)>150?'#111111':'#ffffff'};
+const ff=i=>`'${FONTS[i][0]}',${FONTS[i][1]}`;
+function bgcss(S){let c=BG[S.bg][1];return c.replace(/linear-gradient\(\d+deg/,'linear-gradient('+S.ang+'deg')}
+function cat(S,dev){const P=PAL[S.pal],o=S.ov,k={b:o.bg||P[1],t:o.tx||P[2],p:o.pr||P[3],a:o.ac||P[4],c:o.cd||P[5]},L=S.layout,cats=[...new Set(S.products.map(p=>p.c).filter(Boolean))];
+const ps=L==5?[...S.products].sort((a,b)=>b.f-a.f):S.products;
+const card=p=>`<article class="pc" data-c="${esc(p.c)}"><div class="pi">${esc(p.e||'🛍️')}${p.i?`<img alt="${esc(p.n)}" src="${p.i}">`:''}${p.x?`<span class="tg">${esc(p.x)}</span>`:''}</div><div class="pb"><div class="pt">${p.f?'★ ':''}${esc(p.n)}</div>${p.d?`<div class="pd">${esc(p.d)}</div>`:''}<div class="pp">${esc(S.cur)}${esc(p.p)}</div></div></article>`;
+const chips=`<button class="kc on" data-cat="">All</button>`+cats.map(c=>`<button class="kc" data-cat="${esc(c)}">${esc(c)}</button>`).join('');
+const grid=ps.length?`<div class="${LAY[L][1]}">${ps.map(card).join('')}</div>`:'<div class="empty">No products yet — add some in the Content tab.</div>';
+const body=L==1?`<div class="ksb"><aside>${chips}</aside>${grid}</div>`:`<div class="kcw">${chips}</div>${grid}`;
+return`<div class="stage" style="background:${bgcss(S)}"><div class="sheet" style="max-width:${dev};--kb:${k.b};--kt:${k.t};--kp:${k.p};--ka:${k.a};--kc:${k.c};--kon:${on(k.p)};--hf:${ff(S.hf)};--bf:${ff(S.bf)};--r:${S.r}px;--cols:${S.cols};font-size:${S.fs}px"><header class="kh"><div class="kn">${esc(S.name)}</div></header><section class="kho${L==7?' big':''}"><h1>${esc(S.tag)}</h1><p>${esc(S.sub)}</p></section>${body}<footer class="kf">${esc(S.contact)}</footer></div></div>`}
+function bindCats(r){r.onclick=e=>{const b=e.target.closest('[data-cat]');if(!b)return;r.querySelectorAll('.kc').forEach(x=>x.classList.toggle('on',x===b));r.querySelectorAll('.pc').forEach(c=>c.style.display=!b.dataset.cat||c.dataset.c==b.dataset.cat?'':'none')}}
+/* encoding */
+const b64=u=>{let s='';for(let i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
+const unb=t=>{t=t.replace(/-/g,'+').replace(/_/g,'/');return Uint8Array.from(atob(t),c=>c.charCodeAt(0))};
+async function pipe(bytes,T){const s=new Blob([bytes]).stream().pipeThrough(new T('deflate-raw'));return new Uint8Array(await new Response(s).arrayBuffer())}
+async function enc(d){const u=new TextEncoder().encode(JSON.stringify(d));if(window.CompressionStream)return'z'+b64(await pipe(u,CompressionStream));return'r'+b64(u)}
+async function dec(t){const m=t[0],u=unb(t.slice(1));const b=m=='z'?await pipe(u,DecompressionStream):u;if(m!='z'&&m!='r')throw 0;return clean(JSON.parse(new TextDecoder().decode(b)))}
+/* routing */
+async function route(){const t=location.hash.slice(1),R=$('#root');
+if(!t){boot();return}
+try{const d=await dec(t);document.title=d.name+' – Catalogue';R.innerHTML=`<div class="view">${cat(d,'1000px')}<p class="note" style="text-align:center;padding-bottom:20px">Made with CatalogCraft · <a href="#">Build your own</a></p></div>`;bindCats(R);document.body.style.background=bgcss(d)}
+catch(e){document.body.style.background='';R.innerHTML='<div style="padding:60px 20px;text-align:center"><h2>This catalogue link is invalid or damaged</h2><p class="note">Ask the owner to generate a new QR code.</p><a href="#">Open the builder</a></div>'}}
+/* editor */
+const st=(m,e)=>{const s=$('#st');if(s){s.textContent=m;s.className=e?'e':''}};
+function snap(){const j=JSON.stringify(S);if(H[hi]!==j){H=H.slice(0,hi+1);H.push(j);if(H.length>60)H.shift();hi=H.length-1}try{localStorage.setItem('cc_draft',j)}catch(e){}}
+function refresh(rp){const p=$('#pv');if(p){p.innerHTML=cat(S,DEV);bindCats(p)}if(rp)panel();clearTimeout(tm);tm=setTimeout(snap,500)}
+const sel=(g,a,v,rp)=>`<select data-g="${g}" data-n ${rp?'data-rp':''}>${a.map((x,i)=>`<option value="${i}" ${i==v?'selected':''}>${esc(Array.isArray(x)?x[0]:x)}</option>`).join('')}</select>`;
+const rng=(g,a,b,v)=>`<input type="range" data-g="${g}" data-n min="${a}" max="${b}" value="${v}">`;
+const txt=(g,v)=>`<input data-g="${g}" value="${esc(v)}">`;
+const row=(l,c)=>`<label class="r"><span>${l}</span>${c}</label>`;
+function panel(){const P=PAL[S.pal],o=S.ov,cv={bg:o.bg||P[1],tx:o.tx||P[2],pr:o.pr||P[3],ac:o.ac||P[4],cd:o.cd||P[5]};let h='';
+if(T=='look')h=`<h4>Start from</h4><div class="row"><select id="biz">${Object.keys(BIZ).map(b=>`<option>${b}</option>`).join('')}</select><button data-act="starter">Load starter</button></div><div class="row"><button class="p" data-act="rand">🎲 Surprise me</button></div>
+<h4>Layout</h4>${row('Homepage',sel('layout',LAY,S.layout))}${row('Columns',rng('cols',2,4,S.cols))}${row('Corner radius',rng('r',0,32,S.r))}
+<h4>Colours</h4>${row('Palette',sel('pal',PAL,S.pal,1))}${[['bg','Background'],['tx','Text'],['pr','Primary / buttons'],['ac','Accent'],['cd','Card']].map(([k,l])=>row(l,`<input type="color" data-o="${k}" value="${cv[k]}">`)).join('')}<div class="row"><button data-act="rescol">Reset colours</button></div>
+<h4>Page background</h4>${row('Preset',sel('bg',BG,S.bg))}${row('Gradient angle',rng('ang',0,360,S.ang))}
+<h4>Typography</h4>${row('Heading font',sel('hf',FONTS,S.hf))}${row('Body font',sel('bf',FONTS,S.bf))}${row('Font size',rng('fs',12,19,S.fs))}`;
+if(T=='items')h=`<h4>Shop details</h4>${row('Name',txt('name',S.name))}${row('Headline',txt('tag',S.tag))}${row('Subtitle',txt('sub',S.sub))}${row('Contact line',txt('contact',S.contact))}${row('Currency',txt('cur',S.cur))}<h4>Products (${S.products.length}/60)</h4>`+S.products.map((p,i)=>`<details class="pr" ${i==openP?'open':''} data-d="${i}"><summary>${esc(p.e)} ${esc(p.n||'Untitled')}</summary><div class="g2"><input data-i="${i}" data-k="e" value="${esc(p.e)}" maxlength="4" title="Emoji"><input data-i="${i}" data-k="n" value="${esc(p.n)}" placeholder="Name"></div><div class="row"><input data-i="${i}" data-k="p" value="${esc(p.p)}" placeholder="Price"><input data-i="${i}" data-k="c" value="${esc(p.c)}" placeholder="Category"><input data-i="${i}" data-k="x" value="${esc(p.x)}" placeholder="Label e.g. -20%"></div><input data-i="${i}" data-k="d" value="${esc(p.d)}" placeholder="Description"><label class="r"><span>Featured</span><input type="checkbox" data-i="${i}" data-k="f" ${p.f?'checked':''}></label><label class="r"><span>Photo (≤4 MB)</span><input type="file" accept="image/jpeg,image/png,image/webp" data-img="${i}"></label><div class="row"><button data-act="up" data-i="${i}">↑</button><button data-act="dn" data-i="${i}">↓</button>${p.i?`<button data-act="noimg" data-i="${i}">Remove photo</button>`:''}<button data-act="del" data-i="${i}">Delete</button></div></details>`).join('')+`<div class="row"><button class="p" data-act="add">+ Add product</button></div>`;
+if(T=='share')h=`<h4>Share with a QR code</h4><p class="note">The whole catalogue is packed into the link itself — no account, no server. Anyone who scans it sees this design and these products.</p>${row('Page link',`<input id="base" value="${esc(location.href.split('#')[0])}">`)}<div class="row"><button class="p" data-act="qr">Generate QR code</button></div><div id="qr"></div><div class="row"><input id="lk" readonly placeholder="Your share link appears here"></div><div class="row"><button data-act="copy">Copy link</button><button data-act="dlqr">Download QR</button><a id="open" target="_blank" rel="noopener"></a></div><h4>Backup</h4><div class="row"><button data-act="dljson">Export JSON</button><label><button onclick="this.nextElementSibling.click()">Import JSON</button><input type="file" accept=".json,application/json" data-imp hidden></label></div><div class="row"><button data-act="reset">Reset everything</button></div>`;
+$('#pn').innerHTML=h}
+function boot(){document.body.style.background='';$('#root').innerHTML=`<div class="app"><aside class="side"><div class="brand"><div>CatalogCraft<small>Free catalogue builder · QR sharing</small></div><div><button data-act="undo" title="Undo">↶</button> <button data-act="redo" title="Redo">↷</button> <button data-act="theme" title="Light/dark">◐</button></div></div><div class="tabs">${[['look','Design'],['items','Content'],['share','Share']].map(([k,l])=>`<button data-tab="${k}" class="${T==k?'on':''}">${l}</button>`).join('')}</div><div id="st"></div><div id="pn"></div></aside><main class="main"><div class="bar"><button data-dev="100%">Desktop</button><button data-dev="768px">Tablet</button><button data-dev="390px">Mobile</button><span>Live preview</span></div><div id="pv"></div></main></div>`;
+panel();refresh(0);const r=$('#root');r.onclick=null;const L=(t,f)=>{if(!boot.L)r.addEventListener(t,f)};
+L('input',e=>{const t=e.target;if(t.dataset.i!==undefined){S.products[t.dataset.i][t.dataset.k]=t.type=='checkbox'?t.checked:t.value;refresh()}else if(t.dataset.g){S[t.dataset.g]=t.dataset.n!==undefined?+t.value:t.value;if(t.dataset.g=='pal')S.ov={};refresh(t.dataset.rp!==undefined)}else if(t.dataset.o){S.ov[t.dataset.o]=t.value;refresh()}});
+L('change',async e=>{const t=e.target;if(t.dataset.img!==undefined){const f=t.files[0];if(!f)return;if(!/^image\/(jpeg|png|webp)$/.test(f.type))return st('Use a JPG, PNG or WebP image.',1);if(f.size>4e6)return st('Image is over 4 MB — pick a smaller one.',1);const im=new Image();im.onload=()=>{const k=Math.min(1,220/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);S.products[t.dataset.img].i=c.toDataURL('image/jpeg',.6);openP=+t.dataset.img;refresh(1);st('Photo added (shrunk to keep links small).')};im.onerror=()=>st('That file could not be read as an image.',1);im.src=URL.createObjectURL(f)}
+if(t.dataset.imp!==undefined){const f=t.files[0];if(!f)return;if(f.size>5e6)return st('File too large.',1);try{S=clean(JSON.parse(await f.text()));snap();panel();refresh(0);st('Imported.')}catch(x){st('That file is not a valid CatalogCraft JSON export.',1)}}});
+L('click',async e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.act,i=+b.dataset.i;
+if(b.dataset.tab){T=b.dataset.tab;r.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));panel();return}
+if(b.dataset.dev){DEV=b.dataset.dev;refresh();return}
+if(a=='starter'){S=starter($('#biz').value);refresh(1)}
+else if(a=='rand'){const R=n=>Math.floor(Math.random()*n);Object.assign(S,{pal:R(PAL.length),bg:R(BG.length),hf:R(FONTS.length),bf:R(FONTS.length),layout:R(LAY.length),cols:2+R(3),r:R(33),ov:{}});refresh(1)}
+else if(a=='rescol'){S.ov={};refresh(1)}
+else if(a=='add'){if(S.products.length>=60)return st('Limit is 60 products.',1);S.products.push({n:'New product',p:'0',c:'',d:'',x:'',e:'🛍️',f:false,i:''});openP=S.products.length-1;refresh(1)}
+else if(a=='del'){S.products.splice(i,1);openP=-1;refresh(1)}
+else if(a=='up'||a=='dn'){const j=a=='up'?i-1:i+1;if(j<0||j>=S.products.length)return;[S.products[i],S.products[j]]=[S.products[j],S.products[i]];openP=j;refresh(1)}
+else if(a=='noimg'){S.products[i].i='';openP=i;refresh(1)}
+else if(a=='undo'||a=='redo'){clearTimeout(tm);snap();const n=hi+(a=='undo'?-1:1);if(n<0||n>=H.length)return;hi=n;S=JSON.parse(H[hi]);panel();refresh(0)}
+else if(a=='theme'){const d=document.documentElement;d.dataset.theme=(d.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))=='dark'?'light':'dark'}
+else if(a=='qr')await share();
+else if(a=='copy'){const l=$('#lk');if(!l.value)return st('Generate the QR code first.',1);l.select();try{await navigator.clipboard.writeText(l.value);st('Link copied.')}catch(x){st('Press Ctrl/Cmd+C to copy the selected link.')}}
+else if(a=='dlqr'){const c=$('#qr canvas');if(!c)return st('Generate the QR code first.',1);const o=document.createElement('canvas');o.width=o.height=c.width+48;const x=o.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,o.width,o.height);x.drawImage(c,24,24);o.toBlob(bl=>save('catalogue-qr.png',bl))}
+else if(a=='dljson')save('catalogue.json',JSON.stringify(S,null,1));
+else if(a=='reset'){if(!rs){rs=1;b.textContent='Click again to confirm';setTimeout(()=>{rs=0;if(b.isConnected)b.textContent='Reset everything'},3000);return}rs=0;S=starter('Bakery');H=[];hi=-1;panel();refresh(0);snap()}})
+;try{const d=localStorage.getItem('cc_draft');if(d&&!boot.done){S=clean(JSON.parse(d));panel();refresh(0)}}catch(e){}boot.done=1;boot.L=1}
+async function save(n,d){const u=window.claude?await claude.use('downloads'):null;if(!u)return st('Saving files is unavailable here — long-press the QR image to save it, or copy the link.',1);try{await u.save({filename:n,data:d})}catch(e){if(e.code!='declined')st('Could not save: '+(e.message||e.code),1)}}
+async function share(){const base=($('#base').value||'').trim().split('#')[0];if(!/^https?:\/\//.test(base))return st('Enter the full https:// link where this page is published.',1);if(!S.products.length)return st('Add at least one product first.',1);
+let d=clean(S),note='',tok=await enc(d);if(base.length+tok.length>MAX&&d.products.some(p=>p.i)){d.products.forEach(p=>p.i='');tok=await enc(d);note='Photos were left out — they make the link too long for a QR code. '}
+if(base.length+tok.length>MAX)return st(`Too large: ${base.length+tok.length} characters (limit ${MAX}). Shorten descriptions or remove products, or share the JSON export instead.`,1);
+const url=base+'#'+tok;$('#lk').value=url;const q=$('#qr');q.innerHTML='';
+if(!window.QRCode)return st('The QR library did not load (offline?). Your link still works — copy it.',1);
+try{new QRCode(q,{text:url,width:300,height:300,correctLevel:QRCode.CorrectLevel.L})}catch(e){return st('QR could not be created: '+e.message,1)}
+const o=$('#open');o.href=url;o.textContent='Open viewer ↗';st(note+'Ready — scan with a phone camera.')}
+addEventListener('hashchange',route);route();
+</script></body></html>
