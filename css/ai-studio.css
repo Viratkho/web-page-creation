@@ -1,0 +1,479 @@
+/* ==========================================================================
+   AI VISUAL STUDIO STYLES
+   Isolated sidebar UI styling and strictly scoped preview animation classes.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. SIDEBAR AI STUDIO UI CONTROLS
+   -------------------------------------------------------------------------- */
+
+.ai-studio-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ai-mode-tabs {
+  display: flex;
+  background: var(--ed-bg);
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--ed-border);
+  gap: 4px;
+}
+
+.ai-mode-btn {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: var(--ed-muted);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.ai-mode-btn:hover {
+  color: var(--ed-text);
+}
+
+.ai-mode-btn.active {
+  background: var(--ed-surface);
+  color: var(--ed-primary);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.ai-prompt-box {
+  background: var(--ed-surface);
+  border: 1px solid var(--ed-border);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ai-prompt-box:focus-within {
+  border-color: var(--ed-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.ai-prompt-textarea {
+  width: 100%;
+  min-height: 90px;
+  resize: vertical;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ed-text);
+}
+
+.ai-prompt-textarea::placeholder {
+  color: var(--ed-muted);
+  opacity: 0.8;
+}
+
+.ai-prompt-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-generate-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+
+.ai-generate-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+}
+
+.ai-generate-btn:active {
+  transform: translateY(0);
+}
+
+.ai-chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ai-prompt-chip {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 14px;
+  background: var(--ed-bg);
+  border: 1px solid var(--ed-border);
+  color: var(--ed-text);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.ai-prompt-chip:hover {
+  border-color: var(--ed-primary);
+  color: var(--ed-primary);
+  background: rgba(79, 70, 229, 0.05);
+}
+
+/* --------------------------------------------------------------------------
+   2. LIVE PREVIEW STAGE INSIDE AI STUDIO SIDEBAR
+   -------------------------------------------------------------------------- */
+
+.ai-preview-stage {
+  border: 1px solid var(--ed-border);
+  border-radius: 10px;
+  background: var(--ed-bg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-preview-stage-header {
+  padding: 8px 12px;
+  background: var(--ed-surface);
+  border-bottom: 1px solid var(--ed-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ed-text);
+}
+
+.ai-preview-canvas-box {
+  height: 140px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f172a;
+}
+
+.ai-preview-interactive-card {
+  position: relative;
+  z-index: 2;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.ai-interpretation-summary {
+  padding: 10px 12px;
+  background: var(--ed-surface);
+  border-top: 1px solid var(--ed-border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.ai-tag-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ai-tag-pill {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--ed-bg);
+  color: var(--ed-muted);
+  border: 1px solid var(--ed-border);
+}
+
+.ai-tag-pill.active {
+  background: rgba(79, 70, 229, 0.1);
+  color: var(--ed-primary);
+  border-color: rgba(79, 70, 229, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   3. AI CUSTOMIZATION DRAWER & CONTROLS
+   -------------------------------------------------------------------------- */
+
+.ai-customizer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.ai-param-control {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ai-param-control label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ed-muted);
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   4. STOREFRONT PREVIEW SCOPED CLASSES & EFFECTS (Scoped to .store-root)
+   -------------------------------------------------------------------------- */
+
+/* Isolated backdrop canvas rendered inside .store-root */
+.store-backdrop-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure storefront sections sit above backdrop canvas */
+.store-root > *:not(.store-backdrop-canvas) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Dynamic AI Keyframes */
+@keyframes aiEntranceFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes aiEntranceSlide {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes aiEntranceZoom {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes aiEntranceBounce {
+  0% { opacity: 0; transform: translateY(30px); }
+  60% { opacity: 1; transform: translateY(-8px); }
+  80% { transform: translateY(4px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes aiEntranceBlur {
+  from { opacity: 0; filter: blur(12px); transform: translateY(12px); }
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+
+@keyframes aiHoverLift {
+  0% { transform: translateY(0); box-shadow: var(--ds-shadow); }
+  100% { transform: translateY(-6px); box-shadow: 0 14px 28px rgba(0,0,0,0.18); }
+}
+
+@keyframes aiHoverGlow {
+  0% { box-shadow: 0 0 0 rgba(79, 70, 229, 0); }
+  100% { box-shadow: 0 0 20px rgba(79, 70, 229, 0.6); }
+}
+
+@keyframes aiHoverTilt {
+  0% { transform: perspective(1000px) rotateX(0deg) rotateY(0deg); }
+  100% { transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(-4px); }
+}
+
+@keyframes aiTypeWave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes aiTypeShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes aiTypeNeon {
+  0%, 100% { text-shadow: 0 0 4px #06b6d4, 0 0 10px #06b6d4, 0 0 18px #06b6d4; }
+  50% { text-shadow: 0 0 2px #06b6d4, 0 0 6px #06b6d4, 0 0 10px #06b6d4; }
+}
+
+@keyframes aiTypeGlitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes aiAmbientAurora {
+  0% {
+    background-position: 0% 50%, 50% 0%;
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    background-position: 100% 50%, 100% 100%;
+    filter: hue-rotate(40deg);
+  }
+  100% {
+    background-position: 0% 50%, 50% 0%;
+    filter: hue-rotate(0deg);
+  }
+}
+
+@keyframes aiAmbientBeams {
+  0% { opacity: 0.3; transform: rotate(0deg) scale(1); }
+  50% { opacity: 0.6; transform: rotate(180deg) scale(1.1); }
+  100% { opacity: 0.3; transform: rotate(360deg) scale(1); }
+}
+
+@keyframes aiAmbientBlobs {
+  0% {
+    background-position: 0% 0%, 100% 100%, 50% 50%;
+  }
+  50% {
+    background-position: 100% 50%, 0% 50%, 100% 0%;
+  }
+  100% {
+    background-position: 0% 0%, 100% 100%, 50% 50%;
+  }
+}
+
+/* Scoped classes applied to .store-root */
+.store-root.ai-anim-entrance-fade > section,
+.store-root.ai-anim-entrance-fade > header,
+.store-root.ai-anim-entrance-fade > footer {
+  animation: aiEntranceFade var(--ai-anim-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.store-root.ai-anim-entrance-slide > section,
+.store-root.ai-anim-entrance-slide > header,
+.store-root.ai-anim-entrance-slide > footer {
+  animation: aiEntranceSlide var(--ai-anim-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.store-root.ai-anim-entrance-zoom > section,
+.store-root.ai-anim-entrance-zoom > header,
+.store-root.ai-anim-entrance-zoom > footer {
+  animation: aiEntranceZoom var(--ai-anim-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.store-root.ai-anim-entrance-bounce > section,
+.store-root.ai-anim-entrance-bounce > header,
+.store-root.ai-anim-entrance-bounce > footer {
+  animation: aiEntranceBounce var(--ai-anim-duration, 1s) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.store-root.ai-anim-entrance-blur > section,
+.store-root.ai-anim-entrance-blur > header,
+.store-root.ai-anim-entrance-blur > footer {
+  animation: aiEntranceBlur var(--ai-anim-duration, 0.9s) cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Stagger delay across sections */
+.store-root[class*="ai-anim-entrance-"] > *:nth-child(1) { animation-delay: calc(var(--ai-anim-delay, 0s) + 0.05s); }
+.store-root[class*="ai-anim-entrance-"] > *:nth-child(2) { animation-delay: calc(var(--ai-anim-delay, 0s) + 0.12s); }
+.store-root[class*="ai-anim-entrance-"] > *:nth-child(3) { animation-delay: calc(var(--ai-anim-delay, 0s) + 0.20s); }
+.store-root[class*="ai-anim-entrance-"] > *:nth-child(4) { animation-delay: calc(var(--ai-anim-delay, 0s) + 0.28s); }
+.store-root[class*="ai-anim-entrance-"] > *:nth-child(5) { animation-delay: calc(var(--ai-anim-delay, 0s) + 0.36s); }
+.store-root[class*="ai-anim-entrance-"] > *:nth-child(6) { animation-delay: calc(var(--ai-anim-delay, 0s) + 0.44s); }
+.store-root[class*="ai-anim-entrance-"] > *:nth-child(7) { animation-delay: calc(var(--ai-anim-delay, 0s) + 0.52s); }
+
+/* Component Targeted AI animations */
+.store-root.ai-comp-hero-wave .store-hero-title {
+  display: inline-block;
+  animation: aiTypeWave var(--ai-anim-duration, 3s) ease-in-out infinite;
+}
+
+.store-root.ai-comp-hero-neon .store-hero-title {
+  animation: aiTypeNeon var(--ai-anim-duration, 2.5s) ease-in-out infinite;
+}
+
+.store-root.ai-comp-hero-shimmer .store-hero-title {
+  background: linear-gradient(90deg, var(--ds-primary), #ffffff, var(--ds-accent), var(--ds-primary));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: aiTypeShimmer var(--ai-anim-duration, 3s) linear infinite;
+}
+
+.store-root.ai-comp-products-lift .store-product-card {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+.store-root.ai-comp-products-lift .store-product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.18);
+}
+
+.store-root.ai-comp-products-glow .store-product-card {
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.store-root.ai-comp-products-glow .store-product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 24px rgba(79, 70, 229, 0.5);
+}
+
+.store-root.ai-comp-products-tilt .store-product-card {
+  transition: transform 0.3s ease;
+}
+.store-root.ai-comp-products-tilt .store-product-card:hover {
+  transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(-4px);
+}
+
+.store-root.ai-comp-buttons-glow .craft-btn {
+  transition: all 0.2s ease;
+}
+.store-root.ai-comp-buttons-glow .craft-btn:hover {
+  box-shadow: 0 0 18px var(--ds-primary);
+}
+
+.store-root.ai-comp-buttons-lift .craft-btn {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.store-root.ai-comp-buttons-lift .craft-btn:hover {
+  transform: translateY(-3px);
+}
+
+/* Reduced Motion Respect */
+@media (prefers-reduced-motion: reduce) {
+  .store-root[class*="ai-anim-"] > *,
+  .store-root[class*="ai-comp-"] *,
+  .store-backdrop-canvas {
+    animation: none !important;
+    transition: none !important;
+  }
+}

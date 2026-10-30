@@ -133,6 +133,9 @@
     if (window.MotionStudio) {
       window.MotionStudio.applyMotionToPreview();
     }
+    if (window.AiStudio && window.AiStudio.getGeneratedBackground && window.AiStudio.getGeneratedBackground()?.particleConfig) {
+      window.AiStudio.syncStorefrontParticleCanvas(window.AiStudio.getGeneratedBackground().particleConfig);
+    }
   }
 
   // Toast notification in editor
@@ -148,12 +151,19 @@
   // Render Sidebar Panels
   function renderSidebar() {
     renderDesignPanel();
+    renderAiPanel();
     renderBackgroundPanel();
     renderMotionPanel();
     renderContentPanel();
     renderButtonsPanel();
     renderComponentsPanel();
     renderSharePanel();
+  }
+
+  function renderAiPanel() {
+    const panel = document.getElementById('panel-ai');
+    if (!panel || !window.AiStudio) return;
+    panel.innerHTML = window.AiStudio.renderPanel();
   }
 
   function renderBackgroundPanel() {
@@ -729,6 +739,7 @@
 
     renderBackgroundPanel: renderBackgroundPanel,
     renderMotionPanel: renderMotionPanel,
+    renderAiPanel: renderAiPanel,
 
     setMotion: function(m) {
       STATE.motion = m;

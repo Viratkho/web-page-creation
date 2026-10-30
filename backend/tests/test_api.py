@@ -358,3 +358,26 @@ def test_motion_and_background_persistence(client):
     assert data["motion"]["global"]["enabled"] is True
     assert data["motion"]["global"]["preset"] == "page-entrance-fade"
     assert data["motion"]["components"]["hero"] == "wave-text"
+
+
+def test_ai_config_persistence(client):
+    payload = dict(SAMPLE_STATE_PAYLOAD)
+    payload["aiConfig"] = {
+        "lastAppliedAnimation": {
+            "appliedClass": "ai-anim-entrance-fade",
+            "target": "global",
+            "duration": "0.8s",
+            "intensity": "high"
+        },
+        "hasBackdropCanvas": True
+    }
+    create_res = client.post("/api/projects", json=payload)
+    assert create_res.status_code == 201
+    proj_id = create_res.json()["id"]
+
+    get_res = client.get(f"/api/projects/{proj_id}")
+    assert get_res.status_code == 200
+    data = get_res.json()
+    assert "aiConfig" in data
+    assert data["aiConfig"]["hasBackdropCanvas"] is True
+    assert data["aiConfig"]["lastAppliedAnimation"]["appliedClass"] == "ai-anim-entrance-fade"

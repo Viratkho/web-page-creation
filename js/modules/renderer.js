@@ -436,11 +436,22 @@ window.StoreRenderer = {
       }
     });
 
-    const compositeClasses = `${styleClass} ${motionClasses}`.trim();
+    let aiClasses = '';
+    if (state.aiConfig && state.aiConfig.lastAppliedAnimation && state.aiConfig.lastAppliedAnimation.appliedClass) {
+      aiClasses = state.aiConfig.lastAppliedAnimation.appliedClass;
+    }
+
+    const hasBackdropCanvas = !!(
+      (window.AiStudio && window.AiStudio.getGeneratedBackground && window.AiStudio.getGeneratedBackground()?.particleConfig) ||
+      (state.aiConfig && state.aiConfig.hasBackdropCanvas)
+    );
+
+    const compositeClasses = `${styleClass} ${motionClasses} ${aiClasses}`.trim();
     const compositeVars = `${cssVars} ${motionInline}`.trim();
 
     return `
       <div class="store-root ${compositeClasses}" style="${compositeVars}">
+        ${hasBackdropCanvas ? '<canvas class="store-backdrop-canvas" id="store-backdrop-canvas"></canvas>' : ''}
         ${overridesCss ? `<style id="fc-injected-overrides">${overridesCss}</style>` : ''}
         ${this.renderAnnouncement(state)}
         ${this.renderHeader(state)}

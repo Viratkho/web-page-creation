@@ -197,7 +197,8 @@
       features: state.features || [],
       faqs: state.faqs || [],
       elementOverrides: (window.FullControl && window.FullControl.elementOverrides) || state.elementOverrides || {},
-      motion: state.motion || (window.MotionStudio && window.MotionStudio.getMotionState()) || {}
+      motion: state.motion || (window.MotionStudio && window.MotionStudio.getMotionState()) || {},
+      aiConfig: state.aiConfig || {}
     };
   }
 

@@ -55,6 +55,7 @@ class Project(Base):
     faqs = Column(Text, default="[]")  # JSON string
     element_overrides = Column(Text, default="{}")  # JSON string
     motion_config = Column(Text, default="{}")  # JSON string
+    ai_config = Column(Text, default="{}")  # JSON string
     created_at = Column(DateTime, default=utcnow)
     updated_at = Column(DateTime, default=utcnow, onupdate=utcnow)
 

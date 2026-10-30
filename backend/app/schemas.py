@@ -132,6 +132,7 @@ class ProjectStateInput(BaseModel):
     faqs: list[FAQItem] = []
     elementOverrides: dict[str, Any] = {}
     motion: dict[str, Any] = {}
+    aiConfig: dict[str, Any] = {}
 
 
 class ProjectStateResponse(BaseModel):
@@ -153,6 +154,7 @@ class ProjectStateResponse(BaseModel):
     faqs: list[FAQItem]
     elementOverrides: dict[str, Any]
     motion: dict[str, Any] = {}
+    aiConfig: dict[str, Any] = {}
     created_at: datetime
     updated_at: datetime
 

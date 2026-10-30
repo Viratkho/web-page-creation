@@ -42,3 +42,10 @@ def init_db():
             conn.commit()
     except Exception:
         pass
+    try:
+        from sqlalchemy import text
+        with engine.connect() as conn:
+            conn.execute(text("ALTER TABLE projects ADD COLUMN ai_config TEXT DEFAULT '{}'"))
+            conn.commit()
+    except Exception:
+        pass

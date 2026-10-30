@@ -136,7 +136,31 @@ A dedicated animation suite providing synchronized page-wide motion or granular 
 
 ---
 
-### 7. ⚡ Full Control Customization Studio
+### 7. 🤖 AI Visual Studio (Natural-Language Background & Animation Engine)
+A dedicated, 100% free AI visual generation suite that interprets plain-English descriptions and automatically constructs matching backgrounds, motion choreography, and ambient effects:
+- **Intelligent Local NLP Interpretation Engine**:
+  - Deterministic client-side parser extracting:
+    - **Aesthetic Themes**: Futuristic, Cyberpunk, Luxury Black & Gold, Oceanic, Aurora Borealis, Sunset Twilight, Soft Pastel, Dark Industrial, Corporate Enterprise, Minimalist, Dark Velvet.
+    - **50+ Color Palette**: Exact HEX (`#RRGGBB`), RGB (`rgb(...)`), and named hues (Navy, Royal Blue, Emerald, Cyan, Gold, Champagne, Lavender, Rose, Charcoal, etc.) with span-overlap conflict resolution.
+    - **Background Techniques**: Linear/Radial/Conic Gradients, Animated Mesh, Aurora Light Curtains, Fluid Blobs, Canvas Particle Systems, Geometric SVG Dot/Grid Patterns, Glassmorphism, Neumorphism.
+    - **Animation Categories**: Entrance (Fade, Slide, Zoom, Bounce, Blur), Hover (Lift, Glow, 3D Tilt, Ripple), Typography (Wave Text, Neon Glow, Gradient Shimmer, Glitch), Ambient Motion, and Scroll Reveal.
+    - **Speed & Intensity**: Context-aware speed normalization ($0.3\text{s} - 2.5\text{s}$ for transitions, $4\text{s} - 16\text{s}$ for ambient effects) and 3-level intensity scaling.
+- **AI Background Generator**:
+  - Automatically compiles descriptions into high-performance CSS gradients, animated classes, or lightweight Canvas particle systems (tech particles, stardust, glowing embers, floating dust).
+  - Isolated backdrop canvas (`.store-backdrop-canvas`) rendered behind storefront sections with zero layout shifts or click blocking.
+- **AI Animation Generator**:
+  - Generates scoped CSS classes and custom keyframes targeting the **Global Website** or **Individual Components** (Hero Banner, Header, Product Cards, Buttons, FAQs, Footer).
+- **Interactive Live Preview Stage**:
+  - Interactive test canvas with dynamic demo card and parameter tags (Theme, Primary/Secondary colors, Intensity, Target).
+  - Creative Variation Generator (**🔄 Variation**) to explore alternate angles, color permutations, and particle densities.
+  - One-click **✓ Apply to Website**, **📋 Copy CSS**, **💾 Save Preset**, and **↺ Reset**.
+- **100% Free & Local by Design**:
+  - Zero paid API keys, zero subscriptions, zero cloud inference charges. Runs entirely locally in browser runtime.
+  - Optional local Ollama integration (`http://localhost:11434`) allows connecting local models (Llama 3, Mistral, Qwen) with seamless zero-latency fallback to the built-in rule engine.
+
+---
+
+### 8. ⚡ Full Control Customization Studio
 A dedicated, professional visual workspace giving shop owners 100% granular design control:
 - **3-Panel Visual Editor**:
   - **Left Panel**: Hierarchical Layer Tree (select, rename, duplicate, delete, lock, reorder) & Element Inserter (+ Headings, Paragraphs, Buttons, Containers, 2-Col Grids, Cards, Dividers, Spacers).
@@ -163,7 +187,7 @@ A dedicated, professional visual workspace giving shop owners 100% granular desi
 
 ---
 
-### 8. Multi-Device Live Responsive Preview
+### 9. Multi-Device Live Responsive Preview
 Test your design in real-time across:
 - **Desktop** (100% fluid)
 - **Tablet** (768px with realistic tablet frame)
@@ -171,14 +195,14 @@ Test your design in real-time across:
 
 ---
 
-### 9. WhatsApp Instant Ordering & Cart
+### 10. WhatsApp Instant Ordering & Cart
 - Live slide-over shopping cart drawer with item counter.
 - One-click **WhatsApp Checkout**: Formats the customer's selected items, quantities, and order total into a pre-filled WhatsApp message sent straight to the merchant's phone number!
 - Instant inquiry contact forms.
 
 ---
 
-### 10. Export & QR Sharing
+### 11. Export & QR Sharing
 - **Standalone HTML Export**: Download a 100% self-contained `.html` file with embedded CSS, JS, and product data that works offline or on any host.
 - **ZIP Export**: Generates a complete project package with `index.html`, `data.json`, and deployment guides.
 - **QR Code Studio**: Instant QR code generation with high-resolution PNG download.

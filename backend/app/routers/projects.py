@@ -45,6 +45,7 @@ def _project_to_state_response(project: Project) -> ProjectStateResponse:
     features = json.loads(project.features or "[]")
     faqs = json.loads(project.faqs or "[]")
     motion = json.loads(project.motion_config or "{}")
+    ai_config = json.loads(project.ai_config or "{}")
 
     # Map sorted products
     sorted_prods = sorted(project.products or [], key=lambda p: p.sort_order)
@@ -80,6 +81,7 @@ def _project_to_state_response(project: Project) -> ProjectStateResponse:
         faqs=faqs,
         elementOverrides=element_overrides,
         motion=motion,
+        aiConfig=ai_config,
         created_at=project.created_at,
         updated_at=project.updated_at,
     )
@@ -162,6 +164,7 @@ def create_project(
         faqs=json.dumps([faq.model_dump() for faq in payload.faqs]),
         element_overrides=json.dumps(payload.elementOverrides or {}),
         motion_config=json.dumps(payload.motion or {}),
+        ai_config=json.dumps(payload.aiConfig or {}),
     )
     db.add(project)
     db.flush()
@@ -222,6 +225,7 @@ def update_project(
     project.faqs = json.dumps([faq.model_dump() for faq in payload.faqs])
     project.element_overrides = json.dumps(payload.elementOverrides or {})
     project.motion_config = json.dumps(payload.motion or {})
+    project.ai_config = json.dumps(payload.aiConfig or {})
     project.updated_at = utcnow()
 
     _sync_products(db, project, payload.products)
@@ -284,6 +288,7 @@ def duplicate_project(
         faqs=original.faqs,
         element_overrides=original.element_overrides,
         motion_config=original.motion_config,
+        ai_config=original.ai_config,
     )
     db.add(duplicated)
     db.flush()
