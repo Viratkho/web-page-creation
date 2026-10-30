@@ -10,8 +10,13 @@ window.StoreRenderer = {
 
     // Background style
     let bgCss = tok.bg;
+    let bgClass = '';
     if (state.bgPreset) {
-      bgCss = state.bgPreset;
+      if (state.bgPreset.startsWith('bg-anim-') || state.bgPreset.startsWith('bg-modern-')) {
+        bgClass = state.bgPreset;
+      } else {
+        bgCss = state.bgPreset;
+      }
     }
 
     return {
@@ -36,7 +41,7 @@ window.StoreRenderer = {
         --ds-badge-radius: ${tok.badgeRadius};
         --ds-shadow: ${tok.shadow};
       `,
-      styleClass: ds.tokens.styleClass || ''
+      styleClass: `${ds.tokens.styleClass || ''} ${bgClass}`.trim()
     };
   },
 
@@ -409,6 +414,15 @@ window.StoreRenderer = {
   renderFullStore: function(state) {
     const { cssVars, styleClass } = this.getThemeStyles(state);
 
+    let motionClasses = '';
+    let motionInline = '';
+    if (window.MotionStudio) {
+      motionClasses = window.MotionStudio.getAppliedMotionClasses();
+      motionInline = window.MotionStudio.getAppliedInlineStyles();
+    } else if (state.motion && state.motion.global && state.motion.global.enabled) {
+      motionClasses = state.motion.global.preset ? `global-anim-${state.motion.global.preset} intensity-${state.motion.global.intensity || 'medium'}` : '';
+    }
+
     let overridesCss = '';
     const overrides = (window.FullControl && window.FullControl.elementOverrides) || state.elementOverrides || {};
     Object.keys(overrides).forEach(sel => {
@@ -422,8 +436,11 @@ window.StoreRenderer = {
       }
     });
 
+    const compositeClasses = `${styleClass} ${motionClasses}`.trim();
+    const compositeVars = `${cssVars} ${motionInline}`.trim();
+
     return `
-      <div class="store-root ${styleClass}" style="${cssVars}">
+      <div class="store-root ${compositeClasses}" style="${compositeVars}">
         ${overridesCss ? `<style id="fc-injected-overrides">${overridesCss}</style>` : ''}
         ${this.renderAnnouncement(state)}
         ${this.renderHeader(state)}

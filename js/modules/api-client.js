@@ -195,7 +195,9 @@
         sort_order: idx
       })),
       features: state.features || [],
-      faqs: state.faqs || []
+      faqs: state.faqs || [],
+      elementOverrides: (window.FullControl && window.FullControl.elementOverrides) || state.elementOverrides || {},
+      motion: state.motion || (window.MotionStudio && window.MotionStudio.getMotionState()) || {}
     };
   }
 

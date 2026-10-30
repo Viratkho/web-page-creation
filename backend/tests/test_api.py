@@ -118,6 +118,22 @@ SAMPLE_STATE_PAYLOAD = {
     "elementOverrides": {
         "#hero-title": {"color": "#92400e"}
     },
+    "motion": {
+        "global": {
+            "enabled": True,
+            "preset": "page-entrance-fade",
+            "intensity": "medium",
+            "speed": 0.8,
+            "delay": 0,
+            "desktop": True,
+            "mobile": True,
+            "reducedMotion": True
+        },
+        "components": {
+            "hero": "wave-text",
+            "products": "hover-lift"
+        }
+    },
 }
 
 
@@ -326,3 +342,19 @@ def test_static_frontend_served(client):
     response = client.get("/")
     assert response.status_code == 200
     assert "CatalogCraft" in response.text
+
+
+def test_motion_and_background_persistence(client):
+    create_res = client.post("/api/projects", json=SAMPLE_STATE_PAYLOAD)
+    assert create_res.status_code == 201
+    proj_id = create_res.json()["id"]
+
+    get_res = client.get(f"/api/projects/{proj_id}")
+    assert get_res.status_code == 200
+    data = get_res.json()
+
+    assert data["bgPreset"] == "bg-warm"
+    assert "motion" in data
+    assert data["motion"]["global"]["enabled"] is True
+    assert data["motion"]["global"]["preset"] == "page-entrance-fade"
+    assert data["motion"]["components"]["hero"] == "wave-text"

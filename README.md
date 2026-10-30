@@ -90,7 +90,53 @@ Browse, preview, and toggle interchangeable components:
 
 ---
 
-### ⚡ 5. Full Control Customization Studio
+### 5. 🖼️ Dedicated Background Studio (56 Ready Templates & Custom Blender)
+A dedicated studio tab offering 56 production-ready backgrounds across 5 categories, plus a custom multi-stop gradient blender:
+- **56 Ready-Made Templates across 5 Categories**:
+  - **15 Solid Backgrounds**: White, Black, Cream, Beige, Navy, Royal Blue, Teal, Emerald, Lavender, Pink, Coral, Orange, Yellow, Grey, Charcoal.
+  - **11 Gradient Backgrounds**: Linear, Radial, Conic, Diagonal, Multi-Stop, Soft Pastel, Dark, Vibrant, Metallic, Sunset, Ocean.
+  - **10 Animated Backgrounds**: Moving Gradient (400% shift), Gradient Waves, Floating Colour Blobs, Animated Mesh Gradient, Aurora Effect, Colour Flow, Particle Background, Soft Light Movement, Animated Grid, Subtle Glow.
+  - **10 Modern Design Backgrounds**: Glassmorphism, Neumorphism, Geometric Patterns, Dot Patterns, Grid Patterns, Noise Texture, Abstract Shapes, Mesh Patterns, Diagonal Stripes, Isometric Cubes.
+  - **10 Professional & Subtle Backgrounds**: Crisp Enterprise, Studio Minimal, Editorial Clean, Warm Workspace, Frosted Canvas, Slate Precision, Light Ceramic, Blueprint Grid, Dark Executive, Charcoal Elegance.
+- **Search & Live Filters**: Real-time keyword search and category filter chips with live interactive swatches.
+- **🎨 Custom Background Blender (4+ Stops)**:
+  - 4 default coordinated color stops (`#508F90`, `#F5F0ED`, `#D6E8E5`, `#2C5E60`), expandable up to 8 stops.
+  - Native browser color picker, direct HEX input, and RGB string parsing (`rgb(r, g, b)`).
+  - Stop position sliders (0% to 100%), add stop, remove stop, and quick clear.
+  - Angle selector buttons (0°, 45°, 90°, 135°, 180°, 225°, 270°, 315°) and Direction presets (→ Right, ↘ Bottom-Right, ↓ Bottom, ↙ Bottom-Left, ↺ Radial, 🔄 Conic).
+  - Live swatch preview, one-click **Apply to Shop**, **Copy CSS Snippet**, and **Save Preset to Library**.
+
+---
+
+### 6. ✨ Motion Studio & Global Website Animation Engine
+A dedicated animation suite providing synchronized page-wide motion or granular component interactivity:
+- **Global Target (`GLOBAL WEBSITE`)**:
+  - **Smooth Fade In**: Fluid 0.8s opacity entrance across all sections.
+  - **Cascade Slide Up**: Content elevation with 28px slide.
+  - **Scale In Focus**: 0.97 to 1.0 cinematic focus reveal.
+  - **Symphony Orchestration**: Header slides down → Hero rises → Cards pop sequentially.
+  - **Subtle Ambient Pulse**: Gentle 6-second rhythmic luminance breathing.
+  - **Radiant Luminous Flow**: Prismatic edge glow shift across page containers.
+  - **Floating Rhythm**: Gentle buoyant motion on badges and media.
+  - **Global 3D Elevation**: All cards elevate smoothly with diffused shadows on hover.
+  - **Scroll Reveal Stagger**: Sections slide and fade in as the visitor scrolls down the page using native `IntersectionObserver`.
+- **Target Selection & Component Animations**:
+  - Target selector with `GLOBAL WEBSITE` plus 7 component targets: **Hero Section**, **Header Bar**, **Product Cards**, **Buttons**, **Features**, **FAQs**, and **Footer**.
+  - Component presets (e.g. Wave Text Flow, Float Banner, Product Hover Lift, Button Ripples, 3D Press).
+  - **Coexistence**: Global page animations and individual component interactions coexist seamlessly without style collisions.
+- **Granular Motion Controls**:
+  - Master Animation Toggle & Live Apply.
+  - **3-Level Intensity**: Subtle (0.5x), Medium (1.0x), High (1.5x scale and travel).
+  - **Speed / Duration Slider**: 0.3s to 3.0s in 0.1s steps.
+  - **Delay Slider**: 0.0s to 1.5s in 0.05s steps.
+  - **Device Toggles**: Independent Enable on Desktop and Enable on Mobile controls.
+  - **Accessibility**: Automatic `@media (prefers-reduced-motion: reduce)` compliance.
+  - **Remove & Reset**: One-click remove global animation or clean reset of all animations.
+- **Strict Preview Scoping**: All motion and background rules are strictly scoped to `.store-root` inside `#preview-container` to guarantee zero style leakage into the builder interface.
+
+---
+
+### 7. ⚡ Full Control Customization Studio
 A dedicated, professional visual workspace giving shop owners 100% granular design control:
 - **3-Panel Visual Editor**:
   - **Left Panel**: Hierarchical Layer Tree (select, rename, duplicate, delete, lock, reorder) & Element Inserter (+ Headings, Paragraphs, Buttons, Containers, 2-Col Grids, Cards, Dividers, Spacers).
@@ -117,7 +163,7 @@ A dedicated, professional visual workspace giving shop owners 100% granular desi
 
 ---
 
-### 6. Multi-Device Live Responsive Preview
+### 8. Multi-Device Live Responsive Preview
 Test your design in real-time across:
 - **Desktop** (100% fluid)
 - **Tablet** (768px with realistic tablet frame)
@@ -125,14 +171,14 @@ Test your design in real-time across:
 
 ---
 
-### 7. WhatsApp Instant Ordering & Cart
+### 9. WhatsApp Instant Ordering & Cart
 - Live slide-over shopping cart drawer with item counter.
 - One-click **WhatsApp Checkout**: Formats the customer's selected items, quantities, and order total into a pre-filled WhatsApp message sent straight to the merchant's phone number!
 - Instant inquiry contact forms.
 
 ---
 
-### 8. Export & QR Sharing
+### 10. Export & QR Sharing
 - **Standalone HTML Export**: Download a 100% self-contained `.html` file with embedded CSS, JS, and product data that works offline or on any host.
 - **ZIP Export**: Generates a complete project package with `index.html`, `data.json`, and deployment guides.
 - **QR Code Studio**: Instant QR code generation with high-resolution PNG download.

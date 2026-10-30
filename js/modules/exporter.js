@@ -200,6 +200,21 @@ window.Exporter = {
     };
 
     window.CatalogCraft = CatalogCraft;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('scroll-in-view');
+            }
+          });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.store-hero, .store-categories, .store-products-section, .store-features-section, .store-faqs-section, .store-contact-section').forEach(function(s) {
+          obs.observe(s);
+        });
+      }
+    });
   </script>
 </body>
 </html>`;

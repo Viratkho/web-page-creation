@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/components.css" id="components-css-link">
   <link rel="stylesheet" href="css/builder.css">
   <link rel="stylesheet" href="css/full-control.css">
+  <link rel="stylesheet" href="css/background-motion.css">
 </head>
 <body>
 
@@ -41,6 +42,8 @@
       <!-- Navigation Tabs -->
       <nav class="sidebar-tabs" aria-label="Editor Panels">
         <button class="tab-btn active" data-tab="design" onclick="App.setTab('design')">🎨 Design</button>
+        <button class="tab-btn" data-tab="background" onclick="App.setTab('background')">🖼️ Background</button>
+        <button class="tab-btn" data-tab="motion" onclick="App.setTab('motion')">✨ Motion</button>
         <button class="tab-btn" data-tab="content" onclick="App.setTab('content')">📝 Content</button>
         <button class="tab-btn" data-tab="buttons" onclick="App.setTab('buttons')">🔘 Buttons</button>
         <button class="tab-btn" data-tab="components" onclick="App.setTab('components')">🧩 Library</button>
@@ -51,6 +54,8 @@
       <!-- Tab Content Panels -->
       <div class="sidebar-content">
         <div class="tab-panel active" id="panel-design"></div>
+        <div class="tab-panel" id="panel-background"></div>
+        <div class="tab-panel" id="panel-motion"></div>
         <div class="tab-panel" id="panel-content"></div>
         <div class="tab-panel" id="panel-buttons"></div>
         <div class="tab-panel" id="panel-components"></div>
@@ -101,6 +106,7 @@
   <script src="js/modules/buttons.js"></script>
   <script src="js/modules/color-studio.js"></script>
   <script src="js/modules/background-studio.js"></script>
+  <script src="js/modules/motion-studio.js"></script>
   <script src="js/modules/full-control.js"></script>
   <script src="js/modules/renderer.js"></script>
   <script src="js/modules/exporter.js"></script>

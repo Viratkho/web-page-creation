@@ -1,0 +1,587 @@
+/* ==========================================================================
+   BACKGROUND STUDIO & GLOBAL ANIMATION ENGINE STYLES
+   Strictly isolated and scoped to prevent builder interface leakage.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. ANIMATED BACKGROUND KEYFRAMES & CLASSES (Scoped to .store-root)
+   -------------------------------------------------------------------------- */
+
+@keyframes bgShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes bgWaves {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+@keyframes bgBlobs {
+  0% {
+    background-size: 100% 100%, 80% 80%, 120% 120%;
+    background-position: 0% 0%, 100% 100%, 50% 50%;
+  }
+  50% {
+    background-size: 120% 120%, 100% 100%, 90% 90%;
+    background-position: 50% 100%, 0% 50%, 100% 0%;
+  }
+  100% {
+    background-size: 100% 100%, 80% 80%, 120% 120%;
+    background-position: 0% 0%, 100% 100%, 50% 50%;
+  }
+}
+
+@keyframes bgMesh {
+  0% { filter: hue-rotate(0deg) saturate(1); }
+  50% { filter: hue-rotate(35deg) saturate(1.2); }
+  100% { filter: hue-rotate(0deg) saturate(1); }
+}
+
+@keyframes bgAurora {
+  0% {
+    background-position: 0% 0%, 0% 50%;
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    background-position: 100% 100%, 50% 100%;
+    filter: hue-rotate(45deg);
+  }
+  100% {
+    background-position: 0% 0%, 0% 50%;
+    filter: hue-rotate(0deg);
+  }
+}
+
+@keyframes bgFlow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes bgParticles {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 500px 1000px, 400px 400px; }
+}
+
+@keyframes bgSoftLight {
+  0% { background-position: 20% 20%, 80% 80%; }
+  50% { background-position: 80% 30%, 20% 70%; }
+  100% { background-position: 20% 20%, 80% 80%; }
+}
+
+@keyframes bgGridPulse {
+  0% { opacity: 0.75; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 0.75; transform: scale(1); }
+}
+
+@keyframes bgSubtleGlow {
+  0% { opacity: 0.6; }
+  50% { opacity: 0.95; }
+  100% { opacity: 0.6; }
+}
+
+/* Background Animated Classes applied only to .store-root */
+.store-root.bg-anim-moving-gradient {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab) !important;
+  background-size: 400% 400% !important;
+  animation: bgShift 14s ease infinite !important;
+}
+
+.store-root.bg-anim-waves {
+  background: radial-gradient(circle at 20% 20%, rgba(79, 70, 229, 0.4) 0%, transparent 40%),
+              radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.4) 0%, transparent 40%),
+              linear-gradient(135deg, #0f172a, #1e1b4b) !important;
+  background-size: 200% 200% !important;
+  animation: bgWaves 12s ease-in-out infinite !important;
+}
+
+.store-root.bg-anim-blobs {
+  background-image: radial-gradient(circle at 30% 30%, rgba(236, 72, 153, 0.25) 0, transparent 40%),
+                    radial-gradient(circle at 70% 70%, rgba(59, 130, 246, 0.25) 0, transparent 45%),
+                    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15) 0, transparent 50%),
+                    linear-gradient(#0f172a, #0b0f19) !important;
+  animation: bgBlobs 16s ease-in-out infinite !important;
+}
+
+.store-root.bg-anim-mesh {
+  background: radial-gradient(at 0% 0%, #4f46e5 0px, transparent 50%),
+              radial-gradient(at 100% 0%, #ec4899 0px, transparent 50%),
+              radial-gradient(at 100% 100%, #06b6d4 0px, transparent 50%),
+              radial-gradient(at 0% 100%, #10b981 0px, transparent 50%),
+              #0f172a !important;
+  animation: bgMesh 10s ease-in-out infinite !important;
+}
+
+.store-root.bg-anim-aurora {
+  background: radial-gradient(circle at 50% 0%, rgba(5, 150, 105, 0.45), transparent 50%),
+              radial-gradient(circle at 20% 40%, rgba(6, 182, 212, 0.4), transparent 45%),
+              radial-gradient(circle at 80% 30%, rgba(139, 92, 246, 0.35), transparent 40%),
+              #090d16 !important;
+  background-size: 200% 200% !important;
+  animation: bgAurora 15s ease infinite !important;
+}
+
+.store-root.bg-anim-flow {
+  background: linear-gradient(135deg, #ff007f, #7928ca, #0070f3, #00dfd8) !important;
+  background-size: 300% 300% !important;
+  animation: bgShift 10s ease infinite, bgFlow 20s linear infinite !important;
+}
+
+.store-root.bg-anim-particles {
+  background-color: #0b0f19 !important;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1px, transparent 1px),
+                    radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px) !important;
+  background-size: 40px 40px, 80px 80px !important;
+  animation: bgParticles 30s linear infinite !important;
+}
+
+.store-root.bg-anim-soft-light {
+  background: radial-gradient(circle at 20% 20%, rgba(244, 244, 245, 0.12) 0%, transparent 60%),
+              radial-gradient(circle at 80% 80%, rgba(244, 244, 245, 0.08) 0%, transparent 60%),
+              #18181b !important;
+  background-size: 150% 150% !important;
+  animation: bgSoftLight 14s ease-in-out infinite !important;
+}
+
+.store-root.bg-anim-grid {
+  background-color: #030712 !important;
+  background-image: linear-gradient(rgba(14, 165, 233, 0.15) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(14, 165, 233, 0.15) 1px, transparent 1px) !important;
+  background-size: 32px 32px !important;
+  animation: bgGridPulse 8s ease-in-out infinite !important;
+}
+
+.store-root.bg-anim-glow {
+  background: radial-gradient(ellipse at 50% 30%, rgba(99, 102, 241, 0.35) 0%, transparent 65%),
+              #0f172a !important;
+  animation: bgSubtleGlow 6s ease-in-out infinite !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. GLOBAL WEBSITE ANIMATION KEYFRAMES & CLASSES (Scoped to .store-root)
+   -------------------------------------------------------------------------- */
+
+@keyframes globalEntranceFade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes globalEntranceSlide {
+  0% { opacity: 0; transform: translateY(28px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes globalEntranceScale {
+  0% { opacity: 0; transform: scale(0.97); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes globalAmbientPulse {
+  0%, 100% { filter: brightness(1) saturate(1); }
+  50% { filter: brightness(1.04) saturate(1.06); }
+}
+
+@keyframes globalFloatRhythm {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes globalLuminousFlow {
+  0% { filter: drop-shadow(0 0 1px rgba(79, 70, 229, 0.1)); }
+  50% { filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.25)); }
+  100% { filter: drop-shadow(0 0 1px rgba(79, 70, 229, 0.1)); }
+}
+
+@keyframes globalShimmerSweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes symphonySlideDown {
+  0% { opacity: 0; transform: translateY(-24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes symphonyFadeUp {
+  0% { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes symphonyPop {
+  0% { opacity: 0; transform: scale(0.92); }
+  70% { transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Global Website Animation Modes applied to .store-root */
+.store-root.global-anim-entrance-fade {
+  animation: globalEntranceFade var(--global-anim-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) var(--global-anim-delay, 0s) both;
+}
+
+.store-root.global-anim-entrance-slide {
+  animation: globalEntranceSlide var(--global-anim-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) var(--global-anim-delay, 0s) both;
+}
+
+.store-root.global-anim-entrance-scale {
+  animation: globalEntranceScale var(--global-anim-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) var(--global-anim-delay, 0s) both;
+}
+
+.store-root.global-anim-symphony .store-header {
+  animation: symphonySlideDown var(--global-anim-duration, 0.7s) cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.store-root.global-anim-symphony .store-hero {
+  animation: symphonyFadeUp var(--global-anim-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) calc(var(--global-anim-delay, 0s) + 0.15s) both;
+}
+
+.store-root.global-anim-symphony .store-categories {
+  animation: symphonyFadeUp var(--global-anim-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) calc(var(--global-anim-delay, 0s) + 0.25s) both;
+}
+
+.store-root.global-anim-symphony .store-product-card {
+  animation: symphonyPop var(--global-anim-duration, 0.6s) cubic-bezier(0.16, 1, 0.3, 1) calc(var(--global-anim-delay, 0s) + 0.35s) both;
+}
+
+.store-root.global-anim-ambient-pulse {
+  animation: globalAmbientPulse 6s ease-in-out infinite;
+}
+
+.store-root.global-anim-luminous-flow {
+  animation: globalLuminousFlow 8s ease-in-out infinite;
+}
+
+.store-root.global-anim-float-rhythm .hero-visual,
+.store-root.global-anim-float-rhythm .store-badge,
+.store-root.global-anim-float-rhythm .store-fab {
+  animation: globalFloatRhythm 5s ease-in-out infinite;
+}
+
+.store-root.global-anim-hover-elevation .store-product-card,
+.store-root.global-anim-hover-elevation .store-feature-card,
+.store-root.global-anim-hover-elevation .store-inquiry-card {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.store-root.global-anim-hover-elevation .store-product-card:hover,
+.store-root.global-anim-hover-elevation .store-feature-card:hover,
+.store-root.global-anim-hover-elevation .store-inquiry-card:hover {
+  transform: translateY(-8px) scale(1.01) !important;
+  box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.16) !important;
+}
+
+/* Scroll reveal classes activated via IntersectionObserver */
+.store-root.global-anim-scroll-reveal .store-hero,
+.store-root.global-anim-scroll-reveal .store-categories,
+.store-root.global-anim-scroll-reveal .store-products-section,
+.store-root.global-anim-scroll-reveal .store-features-section,
+.store-root.global-anim-scroll-reveal .store-faqs-section,
+.store-root.global-anim-scroll-reveal .store-contact-section {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--global-anim-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1),
+              transform var(--global-anim-duration, 0.8s) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.store-root.global-anim-scroll-reveal .store-hero.scroll-in-view,
+.store-root.global-anim-scroll-reveal .store-categories.scroll-in-view,
+.store-root.global-anim-scroll-reveal .store-products-section.scroll-in-view,
+.store-root.global-anim-scroll-reveal .store-features-section.scroll-in-view,
+.store-root.global-anim-scroll-reveal .store-faqs-section.scroll-in-view,
+.store-root.global-anim-scroll-reveal .store-contact-section.scroll-in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   3. INDIVIDUAL COMPONENT ANIMATION PRESETS
+   -------------------------------------------------------------------------- */
+
+@keyframes textWave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 rgba(79, 70, 229, 0); }
+  50% { box-shadow: 0 0 20px rgba(79, 70, 229, 0.5); }
+}
+
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.store-root .anim-hero-wave .hero-title {
+  display: inline-block;
+  animation: textWave 3s ease-in-out infinite;
+}
+
+.store-root .anim-hero-pulse .hero-badge {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.store-root .anim-hero-float .hero-visual {
+  animation: floatBounce 4s ease-in-out infinite;
+}
+
+.store-root .anim-products-hover-lift .store-product-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.store-root .anim-products-hover-lift .store-product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+}
+
+.store-root .anim-products-zoom-tilt .store-product-card {
+  transition: transform 0.3s ease;
+}
+.store-root .anim-products-zoom-tilt .store-product-card:hover {
+  transform: scale(1.02) rotate(-0.5deg);
+}
+
+.store-root .anim-header-blur-drop .store-header {
+  animation: symphonySlideDown 0.6s ease both;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+.store-root .anim-features-spin-icon .store-feature-card:hover .feature-icon {
+  display: inline-block;
+  animation: spinSlow 1.5s linear infinite;
+}
+
+/* --------------------------------------------------------------------------
+   4. INTENSITY MODIFIERS & DEVICE GUARDS
+   -------------------------------------------------------------------------- */
+
+.store-root.intensity-subtle {
+  --global-anim-scale: 0.6;
+}
+.store-root.intensity-medium {
+  --global-anim-scale: 1.0;
+}
+.store-root.intensity-high {
+  --global-anim-scale: 1.5;
+}
+
+/* Device restrictions */
+.store-root.disable-mobile-anim {
+  @media (max-width: 768px) {
+    animation: none !important;
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+
+.store-root.disable-desktop-anim {
+  @media (min-width: 769px) {
+    animation: none !important;
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .store-root,
+  .store-root * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. BUILDER SIDEBAR UI STYLES (Background & Motion Panels)
+   -------------------------------------------------------------------------- */
+
+.bg-category-tabs,
+.motion-target-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+  scrollbar-width: thin;
+}
+
+.bg-cat-chip,
+.motion-target-chip {
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: 1px solid var(--ed-border);
+  background: var(--ed-surface);
+  color: var(--ed-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.bg-cat-chip:hover,
+.motion-target-chip:hover {
+  border-color: var(--ed-primary);
+  color: var(--ed-text);
+}
+
+.bg-cat-chip.active,
+.motion-target-chip.active {
+  background: var(--ed-primary);
+  border-color: var(--ed-primary);
+  color: #ffffff;
+}
+
+.bg-templates-grid,
+.motion-presets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.bg-template-card,
+.motion-preset-card {
+  border: 1px solid var(--ed-border);
+  background: var(--ed-surface);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.bg-template-card:hover,
+.motion-preset-card:hover {
+  border-color: var(--ed-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.bg-template-card.active,
+.motion-preset-card.active {
+  border-color: var(--ed-primary);
+  outline: 2px solid var(--ed-primary);
+  outline-offset: 1px;
+}
+
+.bg-thumb-preview {
+  height: 60px;
+  width: 100%;
+  border-bottom: 1px solid var(--ed-border);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-card-body,
+.motion-card-body {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bg-card-name,
+.motion-card-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ed-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bg-card-desc,
+.motion-card-desc {
+  font-size: 10px;
+  color: var(--ed-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Custom Blender Color Stops */
+.blender-stops-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.blender-stop-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: var(--ed-bg);
+  border: 1px solid var(--ed-border);
+  border-radius: 6px;
+}
+
+.blender-stop-picker {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+}
+
+.blender-stop-hex {
+  width: 70px;
+  font-family: monospace;
+  font-size: 11px;
+  padding: 4px 6px;
+  border: 1px solid var(--ed-border);
+  border-radius: 4px;
+  background: var(--ed-surface);
+  color: var(--ed-text);
+}
+
+.blender-stop-rgb {
+  flex: 1;
+  font-family: monospace;
+  font-size: 10px;
+  padding: 4px 6px;
+  border: 1px solid var(--ed-border);
+  border-radius: 4px;
+  background: var(--ed-surface);
+  color: var(--ed-text);
+}
+
+.blender-stop-pos {
+  width: 50px;
+  font-size: 11px;
+}
+
+.blender-preview-box {
+  height: 90px;
+  border-radius: 8px;
+  border: 1px solid var(--ed-border);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75);
+}

@@ -33,5 +33,12 @@ def get_db():
 
 
 def init_db():
-    """Create all database tables."""
+    """Create all database tables and apply lightweight column migrations."""
     Base.metadata.create_all(bind=engine)
+    try:
+        from sqlalchemy import text
+        with engine.connect() as conn:
+            conn.execute(text("ALTER TABLE projects ADD COLUMN motion_config TEXT DEFAULT '{}'"))
+            conn.commit()
+    except Exception:
+        pass
